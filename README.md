@@ -1,2 +1,13 @@
 # Structure_and_Dynamics_Paper
 Lammps and python script for structure and dynamics of dispersed polymer melts
+
+
+- mkinput_monodisperse.py: python code to generate initial configurations of monodisperse melt
+- mkinput_monodisperse.py: python script to generate that of polydispersed melt
+- in.poly: lammps input file for equilibration and production
+
+  Analysis Script
+- msd.py: python code for analyzing dynamics (monomer and center of mass mean squared displacement for all chains and given test chain)
+- e2etest.py: python script to call -pppmd.py for computing end-to-end vector autocorrelation (E2E ACF)
+- pppmd.py: post processing script for calculation - used for E2E ACF in this case.
+- radiusOfGyrationPolydispersity.py: python script for calculating average radius of gyration of all chains and test chains
