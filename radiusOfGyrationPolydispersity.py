@@ -2,7 +2,7 @@
 
 #Author: Taofeek Tejuosho and Sohil Kollipara
 
-
+#Code to compute average radius of gyration for all or test chains
 
 # read dump file and create timestep dictionary
 """

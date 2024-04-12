@@ -19,7 +19,7 @@ import fileinput
 import numpy
 import warnings
 # INPUT PARAMETERs
-nconf =  2015  #number of configurations to take data for
+nconf =  2015  #number of configurations to take data from
 npoly =    2000 #need this for com calc
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 

@@ -29,10 +29,10 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
         def _pdf(self, x, z, Mn):
             #return (x**(alpha - 1) * np.exp(-x / beta)) / (beta**alpha * np.math.gamma(alpha))
             return (z**(z+1)/np.math.gamma(z+1))*(x**(z-1)/Mn**(z))*np.exp(-z*x/Mn)
-            
+
 
     # Parameters for the distribution
-    z = 1 #1.25# 6.25   # Shape parameter
+    z = 1 #1.25# 6.25   # Shape parameter to control dispersity
     Mn = 180 #33.3  # Scale parameter - Number average molecular weight
     num_samples = 4000 #Number of chains
     nmin = 0 #Minimum chain length
@@ -46,9 +46,9 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
     plt.hist(monomers_per_polymer, bins=30, edgecolor = "black", density=True, alpha=0.6, color='blue')
 
         # Calculate the theoretical distribution for visualization
-    x_vals = np.linspace(0, max(monomers_per_polymer), num_samples)
-    y_vals = SZ.pdf(x_vals, z = z, Mn=Mn)
-    plt.plot(x_vals, y_vals / np.trapz(y_vals, x_vals), color='red', label='Schulz-Zimm Distribution')
+    #x_vals = np.linspace(0, max(monomers_per_polymer), num_samples)
+    #y_vals = SZ.pdf(x_vals, z = z, Mn=Mn)
+    #plt.plot(x_vals, y_vals / np.trapz(y_vals, x_vals), color='red', label='Schulz-Zimm Distribution')
     #plt.ylim([0, 0.07])
     plt.xlabel('Chain Length')
     plt.ylabel('Probability Density')
@@ -58,7 +58,7 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
     #print(X)
     print("what type is this",type(monomers_per_polymer))
     monomers_per_polymer = monomers_per_polymer.astype(int)
-    
+
     #monomers_per_polymer = [math.ceil(x) for x in monomers_per_polymer]
     #list_mon = list(monomers_per_polymer)
     #A function to remove all the zeros in the melts
@@ -68,15 +68,15 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
      #   return result, mask
     def remove_and_add(arr):
     # Find the minimum value in the array
-    
-    
+
+
     # Count the occurrences of 1 and 2 in the array
         count_zeros = np.count_nonzero(arr == 0)
         count_ones = np.count_nonzero(arr == 1)
         count_twos = np.count_nonzero(arr == 2)
         #count_threes = np.count_nonzero(arr == 3)
-    
-    # Create a new array with 0s and 1s, 2s and 3s removed
+
+    # Create a new array with 0s and 1s, 2s and/or 3s removed
         #new_arr = arr[(arr != 0) & (arr != 1) & (arr !=2) & (arr !=3) ]
         new_arr = arr[(arr != 0) & (arr != 1) & (arr !=2) ]
         #new_arr = arr[(arr != 0) & (arr != 1)]
@@ -109,7 +109,7 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
     data.index
     data.reset_index(inplace = True)
     data = data.rename(columns = {'index': "No_of_monomers"})
-    data['weight_fraction'] = data["No_of_monomers"]*data["No_chains"]/sum(data["No_of_monomers"]* data["No_chains"])  
+    data['weight_fraction'] = data["No_of_monomers"]*data["No_chains"]/sum(data["No_of_monomers"]* data["No_chains"])
     Mw = sum((data['No_of_monomers']*data['weight_fraction']))
     print("Average molecular weight is ", Mw)
     Mn = sum((data['No_of_monomers']*data['No_chains']))/sum(data['No_chains'])
@@ -131,11 +131,11 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
     plt.yticks(fontsize=20)
     #plt.ylim([0, 0.0175])
     #plt.xlim([0,1200])
-    plt.show()   
+    plt.show()
     pass
     #random_seed = 12
     polydispersity = True
-      
+
     if nbeadsInput > 0:
         print("input params detected")
         nbeads = nbeadsInput
@@ -199,9 +199,9 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
             else:
                 monomer.append(1)
                 bead_count = bead_count + 1
- 
- 
-         
+
+
+
             # append individual monomer to monomers list
             monomers.append(monomer)
         # append monomers that constitute polymer into polymer list
@@ -287,7 +287,7 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
                         prevUnit = polymers[polymerNum][monomerNum][unitNum - 1]
                     else:
                         prevUnit = polymers[polymerNum][monomerNum - 1][-1]
-                        # pick random direction; scale to be bond length 
+                        # pick random direction; scale to be bond length
                     dx = random.random() - 0.5
                     dy = random.random() - 0.5
                     dz = random.random() - 0.5
@@ -348,7 +348,7 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
 
     print("Polymers built.")
     x_date = datetime.now()
-    
+
     INPUT_LAMMPS.write("#")
     INPUT_LAMMPS.write(x_date.strftime("%d-%B-%Y"))
     INPUT_LAMMPS.write("\n")
@@ -443,5 +443,5 @@ def generateInputFile(nbeadsInput, monomers_per_polymer_input, npoly_input, mins
     INPUT_LAMMPS.write("1  1.0\n")
     INPUT_LAMMPS.close()
     print("LAMMPS output complete.")
-    
+
 generateInputFile(1,0,4000,1,0.85,0.97,'input.lammps',nmin = 0, nmax = 1600)

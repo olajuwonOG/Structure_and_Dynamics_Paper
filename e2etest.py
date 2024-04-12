@@ -23,5 +23,4 @@ OUT.write("timestep, E2E\n")
 print("t Reet_dot_Ree0")
 for t in range(len(timestep)):
     OUT.write("%7i, %8.4f\n" % ((timestep[t]-timestep[0]), e2e_autocorr[t]))
-	#print(timestep[t]-timestep[0], e2e_autocorr[t])
 OUT.close()

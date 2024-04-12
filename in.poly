@@ -84,7 +84,7 @@ variable s equal next(f)
 
 dump dump3 all custom 1000 production.dump id mol type q xs ys zs ix iy iz
 
-dump_modify dump3 sort id #sort per-atom lines by atom ID
+dump_modify dump3 sort id #sort per-atom lines by atom ID important for Z1+ code
 
 dump_modify dump3 every v_s
 

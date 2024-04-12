@@ -12,7 +12,7 @@ import numpy as np
 import random as rnd
 
 #INPUT PARAMETERS
-iseed = 5000             # random number seed
+iseed = 50             # random number seed
 nbeads = 1                # number of beads in monomer (3, 5, 7, or 9 for ionomer project)
 nxbeads = 3       #number of beads in the x segment of only backbone, to be randomly added in
 x_y = 0     #ratio of uncharged x segments per regular 'y' segments with charged monomers
@@ -20,7 +20,7 @@ nmonomersperpoly = 140 #4 before      # total (including x) number of monomers i
 npoly =  1000    #1000 number of polymers chains in total
 minsep = 1.0                # allowed separation in overlap check
 cisize = 0.5                #counterion diameter/bead diameter; to adjust density
-z_c = 1                   # counterion valence                 
+z_c = 1                   # counterion valence
 dens = 0.85               # bead density
 
 bond = 0.97  # bond length. depends on bond potential, but close to 1 is good enough
@@ -38,9 +38,9 @@ if (nbeads == 1): # This is type 1, meaning all monomers are the same = PE
     sequence = [ 1 ]
 else:
     sys.exit ("define sequence of monomers.")
-    
 
-    
+
+
 
 INPUT_LAMMPS = open('input_Flexible_Monodisperse.lammps', 'w')
 INPUT_PDB = open('input.pdb', 'w')
@@ -76,7 +76,7 @@ vol = hx * hy * hz
 nbonds = ntot-npoly
 
 print('nbonds', nbonds)
-print() 
+print()
 print(("Total number of particles:",ntot))
 print(("Number of chains =", npoly))
 print(("beads in monomer =", nbeads))
@@ -95,9 +95,9 @@ print(("metric: %10.4f %10.4f %10.4f\n\n" % (hx, hy, hz)))
 
 
 # init position variables
-xc=np.zeros((dim,),dtype=float) 
-yc=np.zeros((dim,),dtype=float) 
-zc=np.zeros((dim,),dtype=float) 
+xc=np.zeros((dim,),dtype=float)
+yc=np.zeros((dim,),dtype=float)
+zc=np.zeros((dim,),dtype=float)
 cx=np.zeros(dim)
 cy=np.zeros(dim)
 cz=np.zeros(dim)
@@ -139,7 +139,7 @@ for ix in range(npoly):
                yc[k] = rnd.random()*hy
                zc[k] = rnd.random()*hz
             else:
-                # pick random direction; scale to be bond length 
+                # pick random direction; scale to be bond length
                 dx = rnd.random()-0.5
                 dy = rnd.random()-0.5
                 dz = rnd.random()-0.5
@@ -148,7 +148,7 @@ for ix in range(npoly):
                 dx = scale*dx
                 dy = scale*dy
                 dz = scale*dz
-                
+
                 xc[k] = xc[k-1] + dx
                 yc[k] = yc[k-1] + dy
                 zc[k] = zc[k-1] + dz
@@ -170,9 +170,9 @@ for ix in range(npoly):
     rgave = rgave + np.sqrt(rg2)
     #print ("current rg", rg2)
 
-    
 
-    
+
+
 print("Polymers built.")
 rg2ave = rg2ave/npoly
 rgave = rgave/npoly
@@ -229,7 +229,7 @@ for i in range(1,dim):
    # INPUT_PDB.write("ATOM  %5i  %2s  NONE    1     %7.3f %7.3f %7.3f  1.00  0.00\n" %  (i,aname, xc[i], yc[i], zc[i] ))
    # INPUT_PSF.write("%8i %4s %3i  %2s   %2s   %2s   %8.6f       %7.4f %10i\n" %  (i,segname,imol,aname,aname,aname,q[i],typeb[i],0))
 
-#Bonds   
+#Bonds
 INPUT_LAMMPS.write("\n")
 INPUT_LAMMPS.write("Bonds\n")
 INPUT_LAMMPS.write("\n")

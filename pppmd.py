@@ -8,7 +8,7 @@
 import sys
 import numpy as np
 
-# read_lammpstrj: read in a lammps trajectory
+# read_lammpstrj: read in a lammps trajectory in the dump format
 #
 # Input: fname, num_frames
 #  fname: filename string or 'stdin' (or a value that evaluates to false) for reading from standard in
