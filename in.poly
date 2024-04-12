@@ -1,0 +1,95 @@
+#This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+
+############## Taofeek Tejuosho #################
+
+
+units		lj
+atom_style	full
+
+read_data     input.lammps
+
+
+pair_style      soft 1.266
+pair_coeff      * * 0.0
+variable        prefactor equal 60.0*elapsed/10000
+fix             softpushoff all adapt 1 pair soft a * * v_prefactor
+
+bond_style	fene
+bond_coeff	1 30.0 1.5 1.0 1.0
+special_bonds	fene
+
+
+neighbor	1.0 bin
+neigh_modify	every 1 delay 0 check yes
+
+
+fix		fix1 all nvt temp 1.0 1.0 1.0 
+
+
+timestep	0.005
+
+
+thermo		1000
+
+thermo_style 	custom step temp press ke pe ebond eimp evdwl ecoul elong lx ly lz 
+
+
+#################Soft Pushoff#################
+
+dump		dump1 all custom 50000 pushoff.dump id mol type q xs ys zs ix iy iz 
+
+run		100000
+
+unfix		softpushoff
+
+undump		dump1
+
+
+#################Equilibration##################
+
+pair_style 	lj/cut 2.5
+       
+pair_modify	shift yes
+
+pair_coeff      * * 1.0 1.0
+
+unfix		fix1
+
+fix		fix2 all npt temp 1.0 1.0 1.0 iso 0 0 100
+
+reset_timestep	0
+
+dump            dump2 all custom 50000 equilibration.dump id mol type q xs ys zs ix iy iz
+
+run             20000000
+
+undump          dump2
+
+
+#################Production##################
+
+reset_timestep	0
+
+variable f file python.txt
+
+variable s equal next(f)
+
+dump dump3 all custom 1000 production.dump id mol type q xs ys zs ix iy iz
+
+dump_modify dump3 sort id #sort per-atom lines by atom ID
+
+dump_modify dump3 every v_s
+
+dump_modify dump3 append yes
+
+restart 1048576 imers.restart
+
+run	100331648
