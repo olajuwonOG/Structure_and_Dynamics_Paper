@@ -9,3 +9,5 @@ Lammps and python script for structure and dynamics of dispersed polymer melts
 - e2etest.py: python script to call -pppmd.py for computing end-to-end vector autocorrelation (E2E ACF)
 - pppmd.py: post processing script for calculation - used for E2E ACF in this case.
 - radiusOfGyrationPolydispersity.py: python script for calculating average radius of gyration of all chains and test chains
+- Dynamic_Structure_Factor.py: calculates dynamic structure factors of test chains in melt
+- Static_Struct_Factor.py: calculates the static structure factors for test chains and bulk
