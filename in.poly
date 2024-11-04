@@ -50,14 +50,25 @@ unfix		softpushoff
 undump		dump1
 
 
-#################Equilibration##################
-
+######bringing up to constant density######
 pair_style 	lj/cut 2.5
        
 pair_modify	shift yes
 
 pair_coeff      * * 1.0 1.0
 
+fix fix11 all npt temp 1.0 1.0 1.0 iso 0 0 100
+
+reset_timestep       0
+
+dump            dump22 all custom 50000 constPress.dump id mol type q xs ys zs ix iy iz
+
+run             1000000
+
+undump          dump22
+
+
+#################Equilibration ##################
 
 fix		fix1 all nvt temp 1.0 1.0 1.0 
 
