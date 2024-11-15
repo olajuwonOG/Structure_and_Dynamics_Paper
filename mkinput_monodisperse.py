@@ -12,7 +12,7 @@
 
 
 #This script includes contributions of multiple authors; an original version was written by Mark Stevens, 
-#and it was modified in the research group of Lisa Hall and later of Janani Sampath
+#and it was modified in the research group of Lisa Hall and later by the group Janani Sampath
 
 
 
