@@ -1,13 +1,23 @@
 #!/usr/bin/python
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+
+# Author:  Lisa Hall from Mark's g(r) code
+# Modified by: Taofeek Tejuosho
+
 
 # Script:  msd.py
 # Purpose: calculate mean sq displacement of various types
 #g1(t) - for middle monomers in selected selected_chains
 #g3(t) - center of mass msd for selected chains
-# Syntax:  msdions.py < filename
 # Example: msdions.py < test.dump (dump file with scaled coordinates)
-# Author:  Lisa Hall from Mark's g(r) code
-# Modified by: Taofeek Tejuosho
 
 # derived from fortran code
 # -------------------------------------------------------
