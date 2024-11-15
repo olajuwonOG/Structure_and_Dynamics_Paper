@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 
-#Author: Taofeek Tejuosho and Sohil Kollipara
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+
+#This script includes contributions of multiple authors; an original version was written by Mark Stevens, 
+#and it was modified in the research group of Lisa Hall and later of Janani Sampath by Taofeek Tejuosho and Sohil Kollipara
 
 #Code to compute average radius of gyration for all or test chains
 
